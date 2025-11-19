@@ -1,6 +1,39 @@
 import styled from 'styled-components'
+import { useEffect, useState } from 'react';
+import SearchResult from './Components/SearchResult.jsx';
+
+
+const BASE_URL = "http://localhost:5000/"
 
 const App = () => {
+
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+
+  useEffect(() => {
+    const fetchFoodData = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(BASE_URL);
+
+        const json = await response.json();
+
+        setData(json);
+        setLoading(false);
+      } catch (error) {
+        setError("Unable to fecth data")
+      }
+    };
+    fetchFoodData();
+  },[]);
+
+
+
+  if(error) return <div>{error}</div>;
+  if(loading) return <div>loading...</div>
+
   return (
     <Container>
       <TopContainer>
@@ -11,12 +44,17 @@ const App = () => {
           <input type="text" placeholder='Search Food...' />
         </div>
       </TopContainer>
+
       <FilterContainer>
         <Button>All</Button>
         <Button>Breakfast</Button>
         <Button>Lunch</Button>
         <Button>Dinner</Button>
       </FilterContainer>
+
+      <SearchResult />
+
+
     </Container>
   );
 };
@@ -49,10 +87,11 @@ const TopContainer = styled.section`
   }
 `;
 
-const FilterContainer = styled.div`
+const FilterContainer = styled.section`
   display: flex;
   justify-content: center;
   gap: 12px;
+  padding-bottom: 30px;
 `;
 
 const Button = styled.button`
@@ -62,5 +101,4 @@ const Button = styled.button`
   padding: 6px 12px;
   border-radius: 5px;;
 `;
-
 
