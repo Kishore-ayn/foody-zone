@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import SearchResult from './Components/SearchResult.jsx';
 
 
-const BASE_URL = "http://localhost:5000/"
+export const BASE_URL = "http://localhost:5000"
 
 const App = () => {
 
@@ -30,38 +30,38 @@ const App = () => {
   },[]);
 
 
-
   if(error) return <div>{error}</div>;
   if(loading) return <div>loading...</div>
 
   return (
-    <Container>
-      <TopContainer>
-        <div className="logo">
-          <img src="/Foody Zone.svg" alt="" />
-        </div>
-        <div className="search">
-          <input type="text" placeholder='Search Food...' />
-        </div>
-      </TopContainer>
+    <>
+      <Container>
 
-      <FilterContainer>
-        <Button>All</Button>
-        <Button>Breakfast</Button>
-        <Button>Lunch</Button>
-        <Button>Dinner</Button>
-      </FilterContainer>
+        <TopContainer>
+          <div className="logo">
+            <img src="/Foody Zone.svg" alt="" />
+          </div>
+          <div className="search">
+            <input type="text" placeholder='Search Food...' />
+          </div>
+        </TopContainer>
 
-      <SearchResult />
-
-
-    </Container>
+        <FilterContainer>
+          <Button>All</Button>
+          <Button>Breakfast</Button>
+          <Button>Lunch</Button>
+          <Button>Dinner</Button>
+        </FilterContainer>
+        
+      </Container>
+      <SearchResult data = {data} />
+    </>
   );
 };
 
 export default App;
 
-const Container = styled.div`
+export const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
 `;  
@@ -94,7 +94,7 @@ const FilterContainer = styled.section`
   padding-bottom: 30px;
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
   background: #FF4343;
   color: white;
   border: none;
