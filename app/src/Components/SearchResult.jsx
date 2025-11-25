@@ -32,7 +32,7 @@ export default SearchResult;
 const FoodCardsContainer = styled.section`
   background-image: url("/bg.png");
   background-size: cover;
-  height: calc(100vh - 200px);
+  min-height: calc(100vh - 200px);
 `;
 
 
